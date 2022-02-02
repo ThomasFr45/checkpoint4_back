@@ -23,8 +23,8 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    const { name, price, toggle } = req.body;
-    const validInput = Items.validate({ name, price, toggle });
+    const { name, price, toggle, image } = req.body;
+    const validInput = Items.validate({ name, price, toggle, image });
       if (!validInput.error) {
         Items.createNew(validInput.value).then(id => {
             const newitem = { id, ...validInput.value };

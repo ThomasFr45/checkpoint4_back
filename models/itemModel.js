@@ -4,9 +4,10 @@ import Joi from 'joi';
 const validate = (data, forCreation = true) => {
   const presence = forCreation ? 'required' : 'optional';
   return Joi.object({
-    name: Joi.string().max(255).presence(presence),
+    name: Joi.string().max(250).presence(presence),
     price: Joi.number().integer().min(1).presence(presence),
     toggle: Joi.boolean().default(true),
+    image: Joi.string().max(255).presence(presence),
   }).validate(data, {abortEarly: false})
 }
 
@@ -43,9 +44,9 @@ const deleteById = (id) => {
 
 // CREATE
 const createNew = (values) => {
-    const { price, name, toggle } = values;
+    const { price, name, toggle, image } = values;
     return new Promise((resolve, reject) => {
-        dbConnect.query('INSERT INTO item (name, price, toggle) VALUES (?, ?, ?)', [name, price, toggle], (err, result) => {
+        dbConnect.query('INSERT INTO item (name, price, toggle, image) VALUES (?, ?, ?, ?)', [name, price, toggle, image], (err, result) => {
             if (err) reject(err);
             else resolve(result.insertId);
         })

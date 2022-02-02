@@ -79,13 +79,12 @@ router.post('/check-token', async (req, res) => {
   }
 });
 
-router.post('/signup', async (req, res) => {
-  console.log("plop")
+router.post('/register', async (req, res) => {
   const { username, password } = req.body;
   try {
       const validInput = Users.validate({ username, password });
-      const userExist = await Users.findOneByUsername(validInput.value.username);
       if (validInput.error) return res.json({ error: validInput.error.details[0].message }).status(422);
+      const userExist = await Users.findOneByUsername(validInput.value.username);
       if (userExist) return res.json({ error: 'This username is already used' }).status(409);
       try {
           const hash = bcrypt.hashSync(validInput.value.password, saltRounds);

@@ -3,7 +3,6 @@ import Joi from 'joi';
 
 const validate = (data, forCreation = true) => {
   const presence = forCreation ? 'required' : 'optional';
-  console.log(data)
   return Joi.object({
     username: Joi.string().max(255).presence(presence),
     password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).trim(true).presence(presence),
