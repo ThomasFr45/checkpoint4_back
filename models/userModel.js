@@ -64,7 +64,7 @@ const updateuser = (newValues, id) => {
 
 const findByToken = (token) => {
   return new Promise((resolve, reject) => {
-      dbConnect.query('SELECT username, token FROM user WHERE token = ?', token, (err, result) => {
+      dbConnect.query('SELECT id, username, token FROM user WHERE token = ?', token, (err, result) => {
           if(err) reject(err);
           else resolve(result[0]);
       })

@@ -63,5 +63,14 @@ const updateItem = (newValues, id) => {
     })
 }
 
+const getRecipeByItem = (id) => {
+    return new Promise((resolve, reject) => {
+        dbConnect.query('SELECT * FROM recipe WHERE item_id = ?', [id], (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+        })
+    })
+}
+
 // exporter toutes les fonctions du model
-export default { getAll, getOneById, deleteById, createNew, updateItem, validate };
+export default { getAll, getOneById, deleteById, createNew, updateItem, validate, getRecipeByItem };

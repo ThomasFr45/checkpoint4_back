@@ -22,6 +22,13 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.get('/:id/recipe', async (req, res) => {
+    const id = req.params.id;
+    const item = await Items.getOneById(id)
+    const recipes = await Items.getRecipeByItem(item[0].id);
+    res.status(200).json(recipes);
+})
+
 router.post('/', (req, res) => {
     const { name, price, toggle, image } = req.body;
     const validInput = Items.validate({ name, price, toggle, image });
